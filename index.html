@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamble</title>
+    <style>
+        table{
+            border: 1px solid black;
+            border-collapse: collapse;
+            max-width: 100%;
+        }
+
+        button {
+            width: 100%;
+        }
+
+        th, h3 {
+            text-align: center;
+        }
+
+        td {
+            text-align: right;
+        }
+
+        td, th {
+            border: 1px black solid;
+            padding: 5px;
+        }
+
+        #contentss {
+            width: fit-content;
+            margin: auto;
+        }
+
+        #editprofit, #editodd {
+            min-width: 100px;
+        }
+
+        #editcalc {
+            text-align: center;
+        }
+
+        #editcontent {
+            width: fit-content;
+            margin: auto;
+        }
+
+        #contentss {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    
+    <h3>The Great Calculation</h3>
+    <hr>
+    <div id="contentss">
+        <div id="editcontent"> 
+            <table>
+                <tr>
+                    <td>Profit: </td>
+                    <td contenteditable="true" id="editprofit">5</td>
+                </tr>
+                <tr>
+                    <td>Odd: </td>
+                    <td contenteditable="true" id="editodd">5</td>
+                </tr>
+                <tr>
+                    <td>Entries: </td>
+                    <td contenteditable="true" id="editentries">30</td>
+                </tr>
+                <tr>
+                    <td colspan="2" id="editcalc"><button onclick="calc()">Calculate</button></td>
+                </tr>
+            </table>
+        </div>
+        <br>
+        <hr>
+        <div id="maintablecontainer"></div>
+        <br>
+    </div>
+    
+
+    <script>
+
+        function calc() {
+
+            if (document.contains(document.getElementById("tt"))) {
+                document.getElementById("tt").remove();
+            }
+
+            var ss, pp, oo, ll, ww, sp, customElementt, str, numberOfValues
+            var parentt = document.getElementById("maintablecontainer")
+            oo = document.getElementById("editodd").innerHTML
+            oo = parseFloat(oo)
+            pp = document.getElementById("editprofit").innerHTML
+            pp = parseFloat(pp)
+            numberOfValues = document.getElementById("editentries").innerHTML
+            numberOfValues = parseFloat(numberOfValues)
+
+            // pp = 5
+            // oo = 5
+            ll = 0
+            // numberOfValues = 31
+
+            str = "<tr> <th>Id</th> <th>Order</th> <th>Loss</th>"
+            str += "<th>Winning</th> <th>Spent</th> </tr>"
+
+            customElementt = createElement("table", str)
+            customElementt.setAttribute("id", "tt")
+            parentt.appendChild(customElementt)
+
+            parentt = document.getElementById("tt")
+
+            ss = (pp + ll) / (oo - 1)
+            // ss = 10
+            ww = ss * oo
+            sp = ss + ll
+
+            str = "<td>1</td><td>" + (ss).toFixed(0) + "</td>"
+            str += "<td>" + (ll).toFixed(2) + "</td>"
+            str += "<td>" + (ww).toFixed(2) + "</td>"
+            str += "<td>" + (sp).toFixed(2) + "</td>"
+
+            customElementt = createElement("tr", str)
+            parentt.appendChild(customElementt)
+
+            for(var i = 2; i < numberOfValues; i++) {
+                ll += ss
+                ss = (pp + ll) / (oo - 1)
+                ww = ss * oo
+                sp = ss + ll
+
+                str = "<td>" + i + "</td><td>" + (Math.round(ss * 100) / 100).toFixed(0) + "</td>"
+                str += "<td>" + (Math.round(ll * 100) / 100).toFixed(2) + "</td>"
+                str += "<td>" + (Math.round(ww * 100) / 100).toFixed(2) + "</td>"
+                str += "<td>" + (Math.round(sp * 100) / 100).toFixed(2) + "</td>"
+
+                customElementt = createElement("tr", str)
+                parentt.appendChild(customElementt)
+            }
+        }
+
+        function createElement(tag, text) {
+            var atag = document.createElement(tag)
+            atag.innerHTML = text
+            return atag
+        }
+    
+    </script>
+</body>
+</html>
