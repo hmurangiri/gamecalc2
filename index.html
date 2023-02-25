@@ -72,6 +72,10 @@
                     <td contenteditable="true" id="editentries">30</td>
                 </tr>
                 <tr>
+                    <td>Limit: </td>
+                    <td contenteditable="true" id="editlimit">300</td>
+                </tr>
+                <tr>
                     <td colspan="2" id="editcalc"><button onclick="calc()">Calculate</button></td>
                 </tr>
             </table>
@@ -91,7 +95,7 @@
                 document.getElementById("tt").remove();
             }
 
-            var ss, pp, oo, ll, ww, sp, customElementt, str, numberOfValues
+            var ss, pp, oo, ll, ww, sp, customElementt, str, numberOfValues, lm
             var parentt = document.getElementById("maintablecontainer")
             oo = document.getElementById("editodd").innerHTML
             oo = parseFloat(oo)
@@ -99,6 +103,8 @@
             pp = parseFloat(pp)
             numberOfValues = document.getElementById("editentries").innerHTML
             numberOfValues = parseFloat(numberOfValues)
+            lm = document.getElementById("editlimit").innerHTML
+            lm = parseFloat(lm)
 
             // pp = 5
             // oo = 5
@@ -140,6 +146,11 @@
 
                 customElementt = createElement("tr", str)
                 parentt.appendChild(customElementt)
+                
+                if (ss >= lm) {
+                    break;   
+                }
+                
             }
         }
 
