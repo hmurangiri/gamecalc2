@@ -138,6 +138,10 @@
                 ss = (pp + ll) / (oo - 1)
                 ww = ss * oo
                 sp = ss + ll
+                
+                if (ss > lm) {
+                    break;   
+                }
 
                 str = "<td>" + i + "</td><td>" + (Math.round(ss * 100) / 100).toFixed(0) + "</td>"
                 str += "<td>" + (Math.round(ll * 100) / 100).toFixed(2) + "</td>"
@@ -146,11 +150,6 @@
 
                 customElementt = createElement("tr", str)
                 parentt.appendChild(customElementt)
-                
-                if (ss >= lm) {
-                    break;   
-                }
-                
             }
         }
 
