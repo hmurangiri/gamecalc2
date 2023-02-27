@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+  "name": "Color Change Clicker",
+  "version": "1.0",
+  "description": "Clicks a button when the color of a specific element changes to a certain color.",
+  "content_scripts": [
+    {
+      "matches": ["https://play.pakakumi.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "permissions": [
+    "tabs",
+    "storage"
+  ]
+}
