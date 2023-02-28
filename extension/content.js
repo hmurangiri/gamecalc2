@@ -1,9 +1,14 @@
 let stake, profit, odd, loss, limit, winning, spent, numberOfValues
 let prevButtonColor = "", currentButtonColor;
 let stakeArray = [], stakeCount = 0;
+let prevResult;
 let amt1, amt2;
-let colorr = "rgb(25, 113, 194)";
+let testTarget = 10;
+let currentHash = "", prevHash;
+let cheatNumber = 8;
 
+var audio = new Audio(chrome.runtime.getURL('cash.mpeg'));
+let colorr = "rgb(25, 113, 194)";
 odd = 5;
 
 function fillArray() {
@@ -11,6 +16,7 @@ function fillArray() {
   loss = 0 //lostake 2
   numberOfValues = 30 //number of entries
   limit = 3000 //Limit
+  stakeCount = 0;
 
   stakeArray.length = 0;
 
@@ -34,6 +40,38 @@ function fillArray() {
   }
 }
 
+function testRun(testTarget) { //x = number of tests
+  
+
+  if (document.getElementsByClassName('css-de18l5')[0].querySelectorAll('tr')[1]) {
+
+    prevHash = document.getElementsByClassName('css-de18l5')[0]
+    prevHash = prevHash.querySelectorAll('tr')[1]
+    prevHash = prevHash.querySelectorAll('td.css-1wxi57q')[4]
+    prevHash = prevHash.querySelector('input.css-1wpxqri')
+    prevHash = prevHash.value;
+
+    if (currentHash !== "") {
+      if (currentHash == prevHash) {
+        return false;
+      }
+    }
+
+    for(var i = 1; i <= testTarget; i++) {
+      prevResult = document.getElementsByClassName('css-de18l5')[0]
+      prevResult = prevResult.querySelectorAll('tr')[i]
+      prevResult = prevResult.querySelectorAll('td.css-1wxi57q')[0]
+      prevResult = prevResult.querySelector('a').innerHTML
+      prevResult = prevResult.replace("x","")
+      prevResult = parseFloat(prevResult)
+  
+      if (prevResult >= odd) {
+        return false;
+      }
+    }
+    return true;
+  }  
+}
 
 function placeBet() {
   let buttonn = document.getElementById("tour_bet_button");
@@ -47,6 +85,10 @@ function placeBet() {
     if (currentButtonColor === colorr) {
       if (prevButtonColor !== colorr) {
         fillArray();
+
+        if (!testRun(testTarget)) {
+          return;
+        }
 
         amt1 = amountDiv.innerHTML
         amt1 = amt1.replace("KES ", "")
@@ -69,15 +111,23 @@ function placeBet() {
       } else {
         stakeCount = stakeCount + 1
 
+        if (stakeCount == cheatNumber) {
+          stakeCount = stakeCount + 2;
+        }
+
         amt2 = amountDiv.innerHTML
         amt2 = amt2.replace("KES ", "")
         amt2 = amt2.replace(",", "")
         amt2 = parseFloat(amt2)
 
         if (amt2 > amt1) {
-          amt1 = amt2;
-          stakeCount = -1;
-          fillArray()
+          audio.play();
+          prevButtonColor = "";
+          currentHash = document.getElementsByClassName('css-de18l5')[0]
+          currentHash = currentHash.querySelectorAll('tr')[1]
+          currentHash = currentHash.querySelectorAll('td.css-1wxi57q')[4]
+          currentHash = currentHash.querySelector('input.css-1wpxqri')
+          currentHash = currentHash.value;
         } else {
           inputt.value = ""
           inputt.focus()   
@@ -85,8 +135,7 @@ function placeBet() {
           inputt2.value = ""
           inputt2.focus()
           document.execCommand('insertText', false, odd);
-          buttonn.click() 
-          
+          buttonn.click()           
           prevButtonColor = currentButtonColor;
         }        
       }
