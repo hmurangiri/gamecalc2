@@ -12,7 +12,7 @@ This is the number of lines you want to generate with your algorithm. This is de
 This is the limit to the maximum stake that you or the platform you are using can handle. This may limit the number of entries generated.  
 
 ## The Extension  
-This is a chrome extension to automate your betting system. The extension has a number of modifications to allow you flexibility and help you stay on the safe side.  
+This also includes a chrome extension to automate your betting system. The extension has a number of modifications to allow you flexibility and help you stay on the safe side.  
 The customisations include:  
 * The input of the website algorithm above.  
 * Array filler to hold the stake values for each iteration.  
